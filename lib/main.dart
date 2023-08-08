@@ -1,24 +1,19 @@
+import 'package:bus_driver/SplashScreen/splashscreen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MyApp(
-        child: MaterialApp(
-      title: 'Drivers App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Welcome to Drivers App'),
+      child: MaterialApp(
+        title: 'Drivers App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-        body: Center(
-          child: Text('Hello, World!'),
-        ),
+        home: const MySplashScreen(),
+        debugShowCheckedModeBanner: false,
       ),
-      debugShowCheckedModeBanner: false,
-    )),
+    ),
   );
 }
 
