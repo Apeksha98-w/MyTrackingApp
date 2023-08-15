@@ -12,6 +12,9 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: const Text("Welcome"),
       ),
+      body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+      ),
     );
   }
 }
