@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "253353178808",
+    "firebase_url": "https://my-tracking-app-19db0-default-rtdb.firebaseio.com",
+    "project_id": "my-tracking-app-19db0",
+    "storage_bucket": "my-tracking-app-19db0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253353178808:android:b7e114fa8f97e019aaa64d",
+        "android_client_info": {
+          "package_name": "com.Apeksha.busdriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253353178808-4f69htg298f66aro857m22b05i1l8fje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASkLGhX-uSrKwAqKXXIu_9Py1ibZI7L3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253353178808-4f69htg298f66aro857m22b05i1l8fje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:bus_driver/authentication/car_info_screen.dart';
+import 'package:bus_driver/authentication/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -162,6 +163,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontSize: 20,
                   ),
                 ),
+              ),
+              TextButton(
+                child: const Text(
+                  "Already have an account? Login Here.",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (c) => LoginScreen()));
+                },
               ),
             ],
           ),
