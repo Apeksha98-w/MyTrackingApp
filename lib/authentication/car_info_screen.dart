@@ -1,5 +1,9 @@
 import 'package:bus_driver/MainScreen/main_screen.dart';
+import 'package:bus_driver/authentication/login_screen.dart';
+import 'package:bus_driver/global/global.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CarInforScreen extends StatefulWidget {
   const CarInforScreen({super.key});
@@ -16,6 +20,25 @@ class _CarInforScreenState extends State<CarInforScreen> {
 
   List<String> carType = ["uber-x", "uber-go", "Bike"];
   String? selectedCarType;
+
+  saveCarInfo() {
+    Map driverCarInfoMap = {
+      "car_model": carModelTextEditingController.text.trim(),
+      "car_number": carNumberTextEditingController.text.trim(),
+      "car_color": carColorTextEditingController.text.trim(),
+      "type": selectedCarType,
+    };
+
+    DatabaseReference driversRef =
+        FirebaseDatabase.instance.ref().child("drivers");
+    driversRef
+        .child(currentFirebaseUser!.uid)
+        .child("car_details")
+        .set(driverCarInfoMap);
+
+    Fluttertoast.showToast(msg: "Congratulations, Car info has been saved .");
+    Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +178,12 @@ class _CarInforScreenState extends State<CarInforScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (c) => MainScreen()));
+                  if (carModelTextEditingController.text.isNotEmpty &&
+                      carNumberTextEditingController.text.isNotEmpty &&
+                      carColorTextEditingController.text.isNotEmpty &&
+                      selectedCarType != null) {
+                    saveCarInfo();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(206, 255, 114, 82),

@@ -69,10 +69,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       driversRef.child(firebaseUser.uid).set(DriverMap);
 
       currentFirebaseUser = firebaseUser;
+      Fluttertoast.showToast(msg: "Account has been created");
       Navigator.push(
           context, MaterialPageRoute(builder: (c) => CarInforScreen()));
     } else {
-      Fluttertoast.showToast(msg: "Account has been not been created");
+      Fluttertoast.showToast(msg: "Account has not been created");
     }
   }
 
