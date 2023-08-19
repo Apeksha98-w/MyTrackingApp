@@ -1,5 +1,10 @@
 import 'package:bus_driver/authentication/car_info_screen.dart';
 import 'package:bus_driver/authentication/login_screen.dart';
+import 'package:bus_driver/global/global.dart';
+import 'package:bus_driver/widgets/progress_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -25,6 +30,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Fluttertoast.showToast(msg: "Phone number is required");
     } else if (passwordTextEditingController.text.length < 6) {
       Fluttertoast.showToast(msg: "Password must be at least 6 characters");
+    } else {
+      saveDriverInfoNow();
+    }
+  }
+
+  saveDriverInfoNow() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext c) {
+          return ProgressDialog(
+            message: "Processing. Please wait...",
+          );
+        });
+
+    final User? firebaseUser = (await fAuth
+            .createUserWithEmailAndPassword(
+      email: emailTextEditingController.text.trim(),
+      password: passwordTextEditingController.text.trim(),
+    )
+            .catchError((msg) {
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: "Error: " + msg.toString());
+    }))
+        .user;
+
+    if (firebaseUser != null) {
+      Map DriverMap = {
+        "id": firebaseUser.uid,
+        "name": nameTextEditingController.text.trim(),
+        "email": emailTextEditingController.text.trim(),
+        "password": passwordTextEditingController.text.trim(),
+      };
+
+      DatabaseReference driversRef =
+          FirebaseDatabase.instance.ref().child("drivers");
+      driversRef.child(firebaseUser.uid).set(DriverMap);
+
+      currentFirebaseUser = firebaseUser;
+      Navigator.push(
+          context, MaterialPageRoute(builder: (c) => CarInforScreen()));
+    } else {
+      Fluttertoast.showToast(msg: "Account has been not been created");
     }
   }
 
